@@ -1,0 +1,439 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Portal | Dashboard</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="css/style.css?v=2">
+</head>
+
+<body>
+    <!-- Modern Top Navbar -->
+    <header class="portal-header">
+        <div class="portal-brand">
+            <span class="brand-mark">S</span>
+            <span>Student Portal</span>
+        </div>
+
+        <span class="header-caption">STUDENT DASHBOARD</span>
+    </header>
+
+    <div class="container-fluid portal-layout">
+        <div class="row g-0">
+
+            <!-- Sticky Left Sidebar -->
+            <aside class="col-md-2 portal-sidebar">
+                <div class="sidebar-inner">
+
+                    <div class="sidebar-heading">MAIN MENU</div>
+
+                    <nav class="sidebar-nav" aria-label="Main navigation">
+                        <a class="nav-link active"
+                           href="#dashboardSection"
+                           data-section="dashboardSection"
+                           aria-current="page">
+                            <span class="menu-icon">⌂</span>
+                            <span>Dashboard</span>
+                        </a>
+
+                        <a class="nav-link"
+                           href="#coursesSection"
+                           data-section="coursesSection">
+                            <span class="menu-icon">▤</span>
+                            <span>My Courses</span>
+                        </a>
+
+                        <a class="nav-link"
+                           href="#coursesSection"
+                           data-section="coursesSection">
+                            <span class="menu-icon">✓</span>
+                            <span>Assignments</span>
+                        </a>
+
+                        <a class="nav-link"
+                           href="#gradesSection"
+                           data-section="gradesSection">
+                            <span class="menu-icon">▥</span>
+                            <span>Grades</span>
+                        </a>
+
+                        <a class="nav-link"
+                           href="#attendanceSection"
+                           data-section="attendanceSection">
+                            <span class="menu-icon">◷</span>
+                            <span>Attendance</span>
+                        </a>
+                    </nav>
+
+                    <!-- Logout -->
+                    <div class="sidebar-bottom">
+                        <div class="sidebar-divider"></div>
+
+                        <button
+                            type="button"
+                            class="logout-link"
+                            id="logoutBtn"
+                        >
+                            <span class="menu-icon">↪</span>
+                            <span>Logout</span>
+                        </button>
+
+                        <p class="sidebar-footer">Student Portal</p>
+                    </div>
+
+                </div>
+            </aside>
+
+            <!-- Main Dashboard -->
+            <main class="col-md-10 portal-main">
+
+                <!-- Welcome Section -->
+                <section id="dashboardSection" class="welcome-section">
+                    <p class="section-eyebrow">OVERVIEW</p>
+
+                    <h1 id="greeting">
+                        Welcome to your Student Portal!
+                    </h1>
+
+                    <p class="text-muted mb-0">
+                        Monitor your courses, grades, attendance, and assignments.
+                    </p>
+                </section>
+
+                <!-- Notification -->
+                <div
+                    id="updateNotification"
+                    class="alert alert-success d-none"
+                    role="status"
+                    aria-live="polite"
+                ></div>
+
+                <!-- Statistics -->
+                <section class="row g-3 mb-4">
+
+                    <div class="col-12 col-sm-6 col-xl-3">
+                        <div class="card shadow-sm h-100">
+                            <div class="card-body">
+                                <p class="text-muted mb-1">Average Grade</p>
+                                <h3 id="stat1-value">0.00</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-sm-6 col-xl-3">
+                        <div class="card shadow-sm h-100">
+                            <div class="card-body">
+                                <p class="text-muted mb-1">Current Courses</p>
+                                <h3 id="stat2-value">0</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-sm-6 col-xl-3">
+                        <div class="card shadow-sm h-100">
+                            <div class="card-body">
+                                <p class="text-muted mb-1">Pending Assignments</p>
+                                <h3 id="stat3-value">0</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-sm-6 col-xl-3">
+                        <div class="card shadow-sm h-100">
+                            <div class="card-body">
+                                <p class="text-muted mb-1">Average Attendance</p>
+                                <h3 id="stat4-value">0%</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                </section>
+
+                <!-- Pending Assignment Alert -->
+                <section id="alertSection" class="mb-4"></section>
+
+                <!-- Courses -->
+                <section id="coursesSection" class="mb-5">
+                    <div class="d-flex flex-wrap justify-content-between
+                                align-items-center gap-2 mb-3">
+                        <div>
+                            <p class="section-eyebrow mb-1">ACADEMIC RECORDS</p>
+                            <h2>My Courses</h2>
+                            <p class="text-muted mb-0">
+                                Search, filter, and sort your course records.
+                            </p>
+                        </div>
+
+                        <button
+                            id="exportBtn"
+                            class="btn btn-success"
+                            type="button"
+                        >
+                            Export CSV
+                        </button>
+                    </div>
+
+                    <!-- Search and Filters -->
+                    <div class="card shadow-sm mb-3">
+                        <div class="card-body">
+                            <div class="row g-3">
+
+                                <div class="col-12 col-md-6 col-xl-3">
+                                    <label for="searchInput" class="form-label">
+                                        Search Courses
+                                    </label>
+                                    <input
+                                        type="search"
+                                        id="searchInput"
+                                        class="form-control"
+                                        placeholder="Course, code, or instructor"
+                                    >
+                                </div>
+
+                                <div class="col-12 col-md-6 col-xl-3">
+                                    <label for="categoryFilter" class="form-label">
+                                        Category
+                                    </label>
+                                    <select id="categoryFilter" class="form-select">
+                                        <option value="All">All Categories</option>
+                                        <option value="IT">IT</option>
+                                        <option value="General Education">
+                                            General Education
+                                        </option>
+                                    </select>
+                                </div>
+
+                                <div class="col-12 col-md-6 col-xl-3">
+                                    <label for="statusFilter" class="form-label">
+                                        Status
+                                    </label>
+                                    <select id="statusFilter" class="form-select">
+                                        <option value="All">All Statuses</option>
+                                        <option value="Ongoing">Ongoing</option>
+                                        <option value="Completed">Completed</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-12 col-md-6 col-xl-3">
+                                    <label for="sortSelect" class="form-label">
+                                        Sort By
+                                    </label>
+                                    <select id="sortSelect" class="form-select">
+                                        <option value="default">Default Order</option>
+                                        <option value="grade-high">Grade: Highest First</option>
+                                        <option value="grade-low">Grade: Lowest First</option>
+                                        <option value="name-az">Course Name: A–Z</option>
+                                        <option value="name-za">Course Name: Z–A</option>
+                                    </select>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Course Table -->
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-hover
+                                              align-middle mb-0">
+                                    <thead class="table-primary">
+                                        <tr>
+                                            <th>Course Code</th>
+                                            <th>Course Name</th>
+                                            <th>Instructor</th>
+                                            <th>Grade</th>
+                                            <th>Status</th>
+                                            <th>Attendance</th>
+                                            <th>Assignment</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody id="courseTable">
+                                        <tr>
+                                            <td colspan="7" class="text-center">
+                                                Loading courses...
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Data Visualization -->
+                <section class="mb-5">
+                    <p class="section-eyebrow mb-1">PERFORMANCE</p>
+                    <h2 class="mb-2">Data Visualization</h2>
+
+                    <p class="text-muted mb-3">
+                        Visualize your grades, attendance, and assignment status.
+                    </p>
+
+                    <div class="row g-4">
+
+                        <div class="col-12 col-xl-6" id="gradesSection">
+                            <div class="card shadow-sm h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">Course Grades</h5>
+                                    <div class="chart-container">
+                                        <canvas
+                                            id="gradesChart"
+                                            role="img"
+                                            aria-label="Bar chart showing course grades"
+                                        ></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-xl-6" id="attendanceSection">
+                            <div class="card shadow-sm h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">Course Attendance</h5>
+                                    <div class="chart-container">
+                                        <canvas
+                                            id="attendanceChart"
+                                            role="img"
+                                            aria-label="Line chart showing course attendance"
+                                        ></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="card shadow-sm">
+                                <div class="card-body">
+                                    <h5 class="card-title">Assignment Status</h5>
+                                    <div class="chart-container">
+                                        <canvas
+                                            id="assignmentChart"
+                                            role="img"
+                                            aria-label="Doughnut chart showing assignment status"
+                                        ></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+
+                <!-- Recent Activity -->
+                <section class="mb-4">
+                    <p class="section-eyebrow mb-1">ACTIVITY</p>
+                    <h2 class="mb-3">Recent Activity</h2>
+
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover align-middle mb-0">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>Activity</th>
+                                            <th>Description</th>
+                                            <th>Date</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody id="activityTable">
+                                        <tr>
+                                            <td colspan="3" class="text-center">
+                                                Loading activities...
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <footer class="portal-footer">
+                    Student Portal <span>•</span> Academic Dashboard
+                </footer>
+
+            </main>
+        </div>
+    </div>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Project JavaScript -->
+    <script src="js/dataManager.js"></script>
+    <script src="js/dashboard.js"></script>
+
+    <!-- FIX: Highlight the menu matching the visible section -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const menuLinks = document.querySelectorAll(
+                ".sidebar-nav .nav-link[data-section]"
+            );
+
+            const sections = [
+                ...new Set(
+                    Array.from(menuLinks)
+                        .map(link => document.getElementById(link.dataset.section))
+                        .filter(Boolean)
+                )
+            ];
+
+            function setActiveMenu(sectionId) {
+                menuLinks.forEach(link => {
+                    const isActive = link.dataset.section === sectionId;
+
+                    link.classList.toggle("active", isActive);
+
+                    if (isActive) {
+                        link.setAttribute("aria-current", "page");
+                    } else {
+                        link.removeAttribute("aria-current");
+                    }
+                });
+            }
+
+            // Update the highlight when a menu item is clicked.
+            menuLinks.forEach(link => {
+                link.addEventListener("click", function () {
+                    setActiveMenu(this.dataset.section);
+                });
+            });
+
+            // Update the highlight while scrolling through the dashboard.
+            if ("IntersectionObserver" in window) {
+                const observer = new IntersectionObserver(entries => {
+                    const visibleSections = entries
+                        .filter(entry => entry.isIntersecting)
+                        .sort((a, b) =>
+                            b.intersectionRatio - a.intersectionRatio
+                        );
+
+                    if (visibleSections.length > 0) {
+                        setActiveMenu(visibleSections[0].target.id);
+                    }
+                }, {
+                    root: null,
+                    rootMargin: "-15% 0px -60% 0px",
+                    threshold: [0, 0.1, 0.25, 0.5]
+                });
+
+                sections.forEach(section => observer.observe(section));
+            }
+
+            // Keep Dashboard highlighted on initial page load.
+            setActiveMenu("dashboardSection");
+        });
+    </script>
+</body>
+</html>
